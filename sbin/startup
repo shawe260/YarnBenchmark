@@ -1,0 +1,24 @@
+#!/bin/sh -x
+#
+# generic-startup  plfs emulab startup script
+# 24-May-2012  chuck@ece.cmu.edu
+#
+
+# redirect all stdout/stderr to log file in /tmp so user can debug errors
+
+exec > /tmp/startup.log 2>&1
+
+#############################################################################
+# first, the generic startup stuff
+#############################################################################
+
+sudo /share/probe/bin/linux-fixpart all                     || exit 1
+sudo /share/probe/bin/linux-localfs -t ext3 -d root /l0 64g                   || exit 1
+
+sudo /share/probe/bin/probe-localize-resolv                   || exit 1
+
+# generate key: ssh-keygen -t rsa -f ./id_rsa
+/share/probe/bin/probe-sshkey                                 || exit 1
+
+echo "startup complete."
+exit 0

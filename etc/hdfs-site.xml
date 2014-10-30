@@ -19,16 +19,16 @@
 <configuration>
     <property>
         <name>dfs.datanode.data.dir</name>
-        <value>file:///usr/local/Hadoop2.0/hadoop-2.4.1/hdfs/datanode</value>
+        <value>file:///l0/hdfs/datanode</value>
     </property>
 
     <property>
         <name>dfs.namenode.name.dir</name>
-        <value>file:///usr/local/Hadoop2.0/hadoop-2.4.1/hdfs/namenode</value>
+        <value>file:///l0/hdfs/namenode</value>
     </property>
 
     <property>
         <name>dfs.replication</name>
-        <value>1</value>
+        <value>2</value>
     </property>
 </configuration>

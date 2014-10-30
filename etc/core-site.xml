@@ -19,7 +19,7 @@
 <configuration>
     <property>
         <name>fs.defaultFS</name>
-        <value>hdfs://h0.yarntest2.openstacksys/</value>
+        <value>hdfs://h0/</value>
         <description>NameNode URI</description>
     </property>
 </configuration>
