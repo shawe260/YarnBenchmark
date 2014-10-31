@@ -6,4 +6,4 @@ if [ "$#" != "2" ]; then
 	exit 0
 fi
 
-/share/probe/bin/probe-makebed -e $1 -p OpenStackSys -i Yarn -n $2 -g Group13 -s ./startup
+/share/probe/bin/probe-makebed -e $1 -p OpenStackSys -i Yarn-1 -n $2 -g Group13 -s /users/shiweid/capstone/YarnBenchmark/sbin/startup 
