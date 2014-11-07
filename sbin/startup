@@ -20,5 +20,9 @@ sudo /share/probe/bin/probe-localize-resolv                   || exit 1
 # generate key: ssh-keygen -t rsa -f ./id_rsa
 /share/probe/bin/probe-sshkey                                 || exit 1
 
+sudo /share/probe/bin/probe-network --big --eth up --ib connected || exit 1
+
+sudo chsh -s /bin/bash shiweid || exit 1
+
 echo "startup complete."
 exit 0

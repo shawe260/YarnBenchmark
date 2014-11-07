@@ -115,10 +115,11 @@ ENVIRONMENT_VARIABLES = [
 #### Host data (for non-EC2 deployments) ####
 HOSTS_FILE="/etc/hosts"
 NET_INTERFACE="eth0"
-RESOURCEMANAGER_HOST = "h0.test3yarn.openstacksys"
+RESOURCEMANAGER_HOST = "h0-dib"
+WEBAPP_HOST = "h0.five.openstacksys"
 NAMENODE_HOST = RESOURCEMANAGER_HOST
 
-SLAVE_HOSTS = ["h%d.test3yarn.openstacksys" % i for i in range(0, 3)]
+SLAVE_HOSTS = ["h%d" % i for i in range(1, 5)]
 # Or equivalently
 #SLAVE_HOSTS = ["slave1.alexjf.net", "slave2.alexjf.net",
 #          "slave3.alexjf.net", "slave4.alexjf.net",
@@ -170,13 +171,14 @@ def updateHadoopSiteValues():
         "yarn.scheduler.maximum-allocation-mb": 1024,
         "yarn.scheduler.minimum-allocation-vcores": 1,
         "yarn.scheduler.maximum-allocation-vcores": 2,
-        "yarn.nodemanager.resource.memory-mb": 4096,
-        "yarn.nodemanager.resource.cpu-vcores": 4,
+        "yarn.nodemanager.resource.memory-mb": 8192,
+        "yarn.nodemanager.resource.cpu-vcores": 8,
         "yarn.log-aggregation-enable": "true",
         "yarn.nodemanager.aux-services": "mapreduce_shuffle",
         "yarn.nodemanager.vmem-pmem-ratio": 3.1,
         "yarn.nodemanager.remote-app-log-dir": os.path.join(HADOOP_TEMP, "logs"),
         "yarn.nodemanager.log-dirs": os.path.join(HADOOP_TEMP, "userlogs"),
+	"yarn.resourcemanager.webapp.address": "%s:8088" % WEBAPP_HOST,
     }
 
     MAPRED_SITE_VALUES = {
@@ -324,6 +326,10 @@ def environmentRevertPrevious():
 def formatHdfs():
     if env.host == NAMENODE_HOST:
         operationInHadoopEnvironment(r"\\$HADOOP_PREFIX/bin/hdfs namenode -format")
+
+
+def clearDN():
+    run("rm -rf %s" % HDFS_DATA_DIR)
 
 
 @runs_once
