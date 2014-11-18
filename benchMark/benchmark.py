@@ -6,7 +6,9 @@ from Executor.ExecutorFactory import ExecutorFactory
 
 if __name__ == "__main__":
     print "Start Benchmarking..."
-    executor = ExecutorFactory().__getExecutor__()
+    # Todo "Usage: ....."
+    # Add command line parser in this to parse the and get different exection mod 
+    executor = ExecutorFactory().__getExecutor__('Random') # Should I add ending criteria?
     executor.__run__()
     time.sleep(5)
     print "Reporting the metrics"

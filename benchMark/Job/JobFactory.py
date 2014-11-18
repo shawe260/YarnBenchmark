@@ -7,9 +7,9 @@ class JobFactory:
     def __init__(self):
         pass
 
-    def __createJob__(self, jobType):
+    def __createJob__(self, jobType, config):
         return {
-            'MapReduce': MapReduceJob('RandomWriter'),
+            'MapReduce': MapReduceJob( config),
             'Spark': SparkJob('pi')
         }.get(jobType, "Not correct")
 

@@ -1,6 +1,7 @@
 #!/usr/bin/python
 '''An abstract class definition for a job executor'''
 
+
 class Executor:
 # should also have machenism for receving metrics
     def __init__(self):

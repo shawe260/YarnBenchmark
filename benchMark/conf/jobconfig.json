@@ -1,0 +1,14 @@
+{
+    "MapReduce" : [
+        {
+            "job.name" : "randomwriter",
+            "job.command" : "/randwriterOut%d",
+            "job.jar" : "hadoop-mapreduce-examples-2.4.1.jar"
+        },
+        {
+            "job.name" : "terasort",
+            "job.command" : "/teraIn /teraOut%d",
+            "job.jar" : "hadoop-mapreduce-examples-2.4.1.jar"
+        }
+    ]
+}
