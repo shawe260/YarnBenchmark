@@ -1,25 +1,21 @@
 #!/usr/bin/python
 
-import time
-import subprocess
+import logging
 from Job import Job
+from defaults import *
 
-#should parse conifguration file to get the job specification
 class SparkJob(Job):
     
-    def __init__(self, name):
-        #The super is needed to start a thread
-        super(SparkJob, self).__init__()
-        self.__jobName = name;
+    def __init__(self, config):
+        super(SparkJob, self).__init__(config)
 
     def run(self):
-        print "Starting a Spark Job: " + self.__jobName
-        start = time.time()
-        print "Start time: " + time.ctime(start);
-        time.sleep(9)
-        end = time.time()
-        print "\nSpark Job: " + self.__jobName + " finished with status <Failed>"
-        print "End time: " + time.ctime(end);
-        print "Elapsed: " + str(end - start);
+        logging.debug("Starting a Spark job: " + self.jobConfig[JOB_NAME])
+        super(SparkJob, self).run()
+        logging.debug("Spark job: " + self.jobConfig[JOB_NAME] + " completed")
+
+    def generateYarnCommand(self):
+        cmd = 'No implemented'
+        return cmd
 
 

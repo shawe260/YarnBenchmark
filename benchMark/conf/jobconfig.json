@@ -3,12 +3,38 @@
         {
             "job.name" : "randomwriter",
             "job.command" : "/randwriterOut%d",
-            "job.jar" : "hadoop-mapreduce-examples-2.4.1.jar"
+            "job.jar" : "hadoop-mapreduce-examples-2.2.0.jar"
         },
         {
             "job.name" : "terasort",
             "job.command" : "/teraIn /teraOut%d",
-            "job.jar" : "hadoop-mapreduce-examples-2.4.1.jar"
+            "job.jar" : "hadoop-mapreduce-examples-2.2.0.jar"
+        },
+        {
+            "job.name" : "pi",
+            "job.command" : "10 2000",
+            "job.jar" : "hadoop-mapreduce-examples-2.2.0.jar"
+        }
+    ],
+    "MPI" : [
+        {
+            "job.name" : "ft.O.4",
+            "job.command" : "ft.O.4",
+            "job.containers.num" : 4
+        }
+    ],
+    "OpenMP" : [
+        {
+            "job.name" : "bt.A.x",
+            "job.command" : "bt.A.x",
+            "job.containers.num" : 4
+        }
+    ],
+    "Spark" : [
+        {
+            "job.name" : "sparktest",
+            "job.command" : "test"
         }
     ]
+
 }

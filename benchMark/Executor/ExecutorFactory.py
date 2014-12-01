@@ -1,19 +1,21 @@
 #!/usr/bin/python
 
+from Executor import Executor
+from TraceExecutor import TraceExecutor
 from RandomExecutor import RandomExecutor 
 
 class ExecutorFactory():
-    executorType = 'Random' 
-    # better use a enum.. this is just to test
+    def __init__(self):
+        pass
 
-    def __init__(self, executorType = 'Random'):
-        self.executorType = executorType
-
-    def __getExecutor__(self):
-        print "Creating a type \"" + self.executorType + "\" executor"
-        return {
-            'Random' : RandomExecutor(),
-        }.get(self.executorType, "Not Correct")
+    def __getExecutor__(self, executorType, timeout):
+        executor = {
+            'Random' : RandomExecutor(timeout),
+            'Trace' : TraceExecutor(timeout)
+        }.get(executorType, "Not Correct")
+        assert isinstance(executor, Executor), '%s is not a supported executorType'%executorType 
+        print "Starting a \"" + executorType + "\" Executor"
+        return executor
         
 if __name__ == "__main__":
     e = ExecutorFactory().__getExecutor__()

@@ -1,37 +1,31 @@
 #!/usr/bin/python
 
 import time
-import json
 import random
 from defaults import *
 from Executor import Executor
 from Job.JobFactory import JobFactory #questionable
 
-# need something like a job pool
 # TODO: could also black list some applications
 class RandomExecutor(Executor):
-    # job pool should be extract to the abstract class, but I do it now here for the easinest of testing and will be move out soon
-    jobPool = {}
-    executorConfig = {}
-    jobType = ['MapReduce'] # A list of existing job types
-    
-    def __init__(self):
-       #generate the jobPool
-        self.__loadExecutorConfig()
-        self.__loadJobPool()
-        pass 
+    # blacklist 
+    def __init__(self, timeout):
+        super(RandomExecutor, self).__init__(RAND_EXECUTOR_CONF_FILE, timeout)
 
-    # this can actually put in the abstract class. the extended excutor only have to implement the getNextJob function
     def __run__(self):
+        # should also be able to construct a log
+        # duration is the lasting period that it keep generating different jobs
         duration = self.executorConfig['duration']
         start = time.time()
         while (start + duration > time.time()): 
             nextJob = self.__getNextJob()
             e = JobFactory().__createJob__(nextJob['jobType'], self.jobPool[nextJob['jobType']][nextJob['jobNo']])
             e.start()
-            time.sleep(5)
+            time.sleep(random.randrange(10, 100))
+        #add to job map
 
     def __getNextJob(self):
+        #add blacklist
         randJob = {}
         randJobType = self.jobType[random.randrange(0, len(self.jobType))]
         randJob['jobType'] = randJobType
@@ -39,12 +33,4 @@ class RandomExecutor(Executor):
         randJob['jobNo'] = randJobNo
         return randJob
 
-    def __loadJobPool(self): #should be in abstract
-        jobPoolFd = open(JOB_CONF_FILE, 'r') # make it to MapReduce config file
-        self.jobPool = json.load(jobPoolFd)
-        jobPoolFd.close()
 
-    def __loadExecutorConfig(self):
-        reConfigFd = open(RAND_EXECUTOR_CONF_FILE, 'r')
-        self.executorConfig = json.load(reConfigFd) 
-        reConfigFd.close()

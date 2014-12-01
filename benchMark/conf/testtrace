@@ -1,0 +1,9 @@
+# arriveTime,jobType,jobName,numContainers,priority
+1,3,sparktest 
+1,1,ft.O.4
+4,2,bt.A.x
+1,0,pi
+2,0,noexsit
+1,0,randomwriter
+#45,0,terasort
+#46,0,terasort
