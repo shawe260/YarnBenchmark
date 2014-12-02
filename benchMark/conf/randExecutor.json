@@ -1,3 +1,6 @@
 {
-    "duration" : 10
+    "duration" : 30,
+    "randlow" : 5,
+    "randhigh" : 10,
+    "blacklist" : {"MapReduce":["randomwriter", "terasort"], "Spark":["sparktest"]}
 }

@@ -28,6 +28,22 @@
             "job.name" : "bt.A.x",
             "job.command" : "bt.A.x",
             "job.containers.num" : 4
+        },
+        {
+            "job.name" : "bt.B.x",
+            "job.command" : "bt.B.x",
+            "job.containers.num" : 4
+        },
+        {
+            "job.name" : "sp.B.x",
+            "job.command" : "sp.B.x",
+            "job.containers.num" : 4
+        },
+        {
+
+            "job.name" : "cg.B.x",
+            "job.command" : "cg.B.x",
+            "job.containers.num" : 4
         }
     ],
     "Spark" : [
@@ -36,5 +52,4 @@
             "job.command" : "test"
         }
     ]
-
 }

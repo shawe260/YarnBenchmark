@@ -41,6 +41,11 @@ class Executor(object):
         self.collector.generateReport()
 
     def __run__(self):
+        self.run()
+        for runningJob in self.runningJobMap:
+            runningJob[0].join()
+
+    def run(self):
         raise NotImplementedError
 
     def __getNextJob(self):

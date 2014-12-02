@@ -1,5 +1,6 @@
 #! /usr/bin/python
 
+import time
 from defaults import *
 
 class MetricsCollector:
@@ -21,7 +22,7 @@ class MetricsCollector:
         print "Report of this run: "
         # TODO: sort by arriving time here!
         for jobMetric in self.jobMetrics:
-            print "Job: %15s | JobType: %10s | Arrive Time: %10f | Status: %10s | Elapsed time: %10f " %(jobMetric[0].jobConfig[JOB_NAME], jobMetric[1], jobMetric[2], jobMetric[3], jobMetric[0].elapsedTime)
+            print "Job: %15s | JobType: %10s | Arrive Time: %15s | Status: %10s | Elapsed time: %10f " %(jobMetric[0].jobConfig[JOB_NAME], jobMetric[1], time.ctime(jobMetric[2]), jobMetric[3], jobMetric[0].elapsedTime)
        
         if (self.cnt != 0):
             print "Avg job running time of finished jobs is: %f" %(self.totalTime / self.cnt)

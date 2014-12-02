@@ -4,6 +4,7 @@ PWD = os.getcwd()
 '''The default variables for the benchmark scripts'''
 CONF_DIR = PWD + '/conf/'
 PWD = "/groups/ClusterSched/advcc19/719/benchMark/"
+TRACE_DIR = CONF_DIR
 
 # Job Configure
 JOB_NAME = "job.name"
@@ -24,10 +25,17 @@ OPENMP_NUM_CORES_BIG = 4
 OPENMP_NUM_CORES_SMALL = 2
 
 # Defaults
-CONTAINER_MEMORY = 7128
+# for mpi and openmp jobs
+CONTAINER_MEMORY = 2048
 TIMEOUT = 1200000
 
+# DO NOT modify the following unless you know what you are doing
 #About executor
+
+#Single App Executor
+SINGLE_EXECUTOR_CONF_FILE = CONF_DIR + 'singleAppExecutor.json'
+generateTrace = True
+TARGET_TRACE_FILE = TRACE_DIR + 'randomGenerated.trace'
 
 #Random Executor
 RAND_EXECUTOR_CONF_FILE = CONF_DIR + 'randExecutor.json'
@@ -36,7 +44,6 @@ RAND_EXECUTOR_CONF_FILE = CONF_DIR + 'randExecutor.json'
 TRACE_EXECUTOR_CONF_FILE = CONF_DIR + 'traceExecutor.json'
 
 #Trace
-TRACE_DIR = CONF_DIR
 TRACE_FILE = TRACE_DIR + 'testtrace'
 
 #Log

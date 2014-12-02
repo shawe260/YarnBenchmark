@@ -8,11 +8,14 @@ from Job.JobFactory import JobFactory #questionable
 
 class TraceExecutor(Executor):
     
-    def __init__(self, timeout = 1200):
+    def __init__(self, tracefile = None, timeout = 1200):
         super(TraceExecutor, self).__init__(TRACE_EXECUTOR_CONF_FILE, timeout)
-        self.tracef = open(TRACE_FILE, 'r')
+        if (tracefile == None):
+            self.tracef = open(TRACE_FILE, 'r')
+        else:
+            self.tracef = open(tracefile, 'r')
 
-    def __run__(self):
+    def run(self):
         baseTime = time.time()
         nextJob = self.__getNextJob()
         while (nextJob != None):
@@ -32,9 +35,6 @@ class TraceExecutor(Executor):
                 e.start()
                 self.runningJobMap[(e, jobType, arrt)] = "Finished" #Note: Assume finished, if killed, will be update in the killapp function
             nextJob = self.__getNextJob()
-
-        for runningJob in self.runningJobMap.keys():
-            runningJob[0].join()
             
     def __getJobConfigByName(self, jobList, jobName):
         for jobConfig in jobList:

@@ -25,7 +25,7 @@ class Job(threading.Thread):
         self.runCommand(cmd)
         
         #TODO: add a simulate mode for debug that only sleep for a random period but not actually launch the application
-        # time.sleep(random.randrange(5, 15))
+        time.sleep(random.randrange(5, 15))
         # Report the status, if possible, report to the metrics module
         end = time.time()
         self.elapsedTime = end - start
