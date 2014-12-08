@@ -7,6 +7,7 @@ from defaults import * # import all the default variables for the project
 import Executor.RandomExecutor
 from Executor.TraceExecutor import TraceExecutor
 from Executor.RandomExecutor import RandomExecutor
+from Metrics.Monitor import Monitor
 
 #Assume executed in the current directory
 
@@ -32,6 +33,11 @@ def testSubProcess():
     print "\n"
     print err
 
+def testMonitor():
+    print "Testing the monitor"
+    monitor = Monitor()
+
+
 
 logging.basicConfig(filename = LOG_FILENAME,
         level = logging.DEBUG,
@@ -40,9 +46,11 @@ logging.basicConfig(filename = LOG_FILENAME,
         )
 
 if __name__ == "__main__":
-    testTraceExecutor()
+    #testTraceExecutor()
     
     #testRandomExecutor()
+
+    testMonitor()
 
     #print "Other convenience test"
     #testSubProcess()

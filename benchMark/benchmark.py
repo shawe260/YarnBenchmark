@@ -5,6 +5,7 @@ import sys
 import argparse
 import logging
 import Executor.ExecutorFactory as ef
+from Metrics.Monitor import Monitor
 from defaults import *
 
 logging.basicConfig(filename = LOG_FILENAME,
@@ -33,12 +34,18 @@ if __name__ == "__main__":
     if HADOOP_HOME not in sys.path:
         sys.path.append(HADOOP_HOME + '/bin')
     '''
+
     results = startParser()
-    print results
+
+    monitor = Monitor()
+    monitor.start()
+
     starter = ef.ExecutorStarter(results.timeout, results.executorType, results.jobType, results.jobName, results.traceFile)
     executor = ef.ExecutorFactory().__getExecutor__(starter)
     executor.__run__()
     executor.__cleanUp__()
     executor.__reportMetrics__()
+
+    monitor.end()
 
     print "Benchmarking finished"

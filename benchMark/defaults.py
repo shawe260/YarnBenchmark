@@ -1,12 +1,10 @@
 #!/usr/bin/python
 import os
 PWD = os.getcwd()
-'''The default variables for the benchmark scripts'''
 CONF_DIR = PWD + '/conf/'
-PWD = "/groups/ClusterSched/advcc19/719/benchMark/"
-TRACE_DIR = CONF_DIR
+TRACE_DIR = 'trace/'
 
-# Job Configure
+'''Job Configure'''
 JOB_NAME = "job.name"
 JOB_JAR_NAME = "job.jar"
 JOB_COMMAND = "job.command"
@@ -15,37 +13,38 @@ JOB_TYPES = ['MapReduce', 'MPI', 'OpenMP', 'Spark'] # a list of job types, 0: Ma
 JOB_CONF_FILE = CONF_DIR + 'jobconfig.json'
 JOB_POOL_DIR = PWD + '/jobpool/'
 
-# jar should be put under job_pool
+#MPI Job
 MPI_JOB_POOL_DIR = JOB_POOL_DIR
 MPI_RUNNER_JAR = "hadoop-yarn-applications-mpirunner-2.2.0.jar"
 
+#OPENMP Job 
 OPENMP_JOB_POOL_DIR = JOB_POOL_DIR
 OPENMP_RUNNER_JAR = "hadoop-yarn-applications-gpu-2.2.0.jar"
 OPENMP_NUM_CORES_BIG = 4
 OPENMP_NUM_CORES_SMALL = 2
 
-# Defaults
-# for mpi and openmp jobs
-CONTAINER_MEMORY = 2048
+# Both for mpi and openmp jobs
+CONTAINER_MEMORY = 1024
 TIMEOUT = 1200000
 
-# DO NOT modify the following unless you know what you are doing
-#About executor
-
-#Single App Executor
+'''Single App Executor'''
 SINGLE_EXECUTOR_CONF_FILE = CONF_DIR + 'singleAppExecutor.json'
+
+'''Random Executor'''
+RAND_EXECUTOR_CONF_FILE = CONF_DIR + 'randExecutor.json'
 generateTrace = True
 TARGET_TRACE_FILE = TRACE_DIR + 'randomGenerated.trace'
 
-#Random Executor
-RAND_EXECUTOR_CONF_FILE = CONF_DIR + 'randExecutor.json'
-
-#Trace Executor
+'''Trace Executor'''
 TRACE_EXECUTOR_CONF_FILE = CONF_DIR + 'traceExecutor.json'
+#Default Trace
+TRACE_FILE = TRACE_DIR + 'test.trace'
 
-#Trace
-TRACE_FILE = TRACE_DIR + 'testtrace'
+'''Log'''
+LOG_FILENAME = 'execution.log'
 
-#Log
-LOG_FILENAME = 'testlog.log'
-
+'''Monitor'''
+MONITOR_ON = True
+NODE_MONITOR_PERIOD = 10
+MONITOR_LOG_PERIOD = 15
+MONITOR_LOG_FILE = 'monitor.log'

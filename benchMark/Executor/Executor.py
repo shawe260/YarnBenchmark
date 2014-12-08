@@ -9,7 +9,6 @@ import subprocess
 from Metrics.MetricsCollector import MetricsCollector
 from defaults import *
 
-
 """
 Executor launches job via user defined behaviour (eg. Trace or Random), and collect metrics from user
 """

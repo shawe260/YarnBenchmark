@@ -2,6 +2,7 @@
 
 import time
 from defaults import *
+from Monitor import Monitor
 
 class MetricsCollector:
     jobMetrics = [] #tuple (jobname, jobstatus, elapsedTime )
@@ -26,3 +27,27 @@ class MetricsCollector:
        
         if (self.cnt != 0):
             print "Avg job running time of finished jobs is: %f" %(self.totalTime / self.cnt)
+        
+        if (MONITOR_ON):
+            mlog = open(MONITOR_LOG_FILE, 'r')
+            totalMu = 0.0
+            totalCu = 0.0
+            cnt = 0
+            for line in mlog:
+                data = line.split()
+                totalMu += float(data[1])
+                totalCu += float(data[2])
+                cnt += 1
+                
+            mlog.close()
+
+            avgMu = 0.0
+            avgCu = 0.0
+            if (cnt != 0):
+                avgMu = totalMu/cnt
+                avgCu = totalCu/cnt
+            
+            print "Cluster usage: "
+            print "Average memory usage [%10f%%] "%(avgMu*100)
+            print "Average cpu usage [%10f%%] "%(avgCu*100)
+
