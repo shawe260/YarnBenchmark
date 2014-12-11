@@ -8,21 +8,18 @@ from Executor import Executor
 from Job.JobFactory import JobFactory #questionable
 
 class RandomExecutor(Executor):
-    blackList = {} # jobtype : [jobName1, jobName2]
+    blackList = {} # {jobtype : [jobName1, jobName2], ...}
     
     def __init__(self, timeout):
-        super(RandomExecutor, self).__init__(RAND_EXECUTOR_CONF_FILE, timeout)
-        self.blackList = self.executorConfig['blacklist']
-        if (generateTrace):
-            self.trace = open(TARGET_TRACE_FILE, 'w')
+        super(RandomExecutor, self).__init__(timeout)
+        self.blackList = RE_BLACK_LIST
+        if (RE_GENERATE_TRACE_ON):
+            self.trace = open(RE_TARGET_TRACE_FILE, 'w')
 
     def run(self):
-        # should also be able to construct a log
-
-        # duration is the lasting period that it keep generating different jobs
-        duration = self.executorConfig['duration']
-        randlow = self.executorConfig['randlow']
-        randhigh = self.executorConfig['randhigh']
+        duration = RE_GEN_DURATION
+        randlow = RE_GEN_RAND_LOW
+        randhigh = RE_GEN_RAND_HIGH
         start = time.time()
         while (start + duration > time.time()): 
             nextJob = self.__getNextJob()

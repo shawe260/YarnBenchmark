@@ -14,7 +14,7 @@ class OpenMPJob(Job):
         logging.debug("OpenMP job: " + self.jobConfig[JOB_NAME] + " completed")
 
     def generateYarnCommand(self):
-        timeout = TIMEOUT * 2
+        timeout = TIMEOUT 
         cmd = 'yarn' \
         + " jar %s/%s org.apache.hadoop.yarn.applications.gpu.Client " %(OPENMP_JOB_POOL_DIR, OPENMP_RUNNER_JAR) \
         + " --jar %s/%s " %(OPENMP_JOB_POOL_DIR, OPENMP_RUNNER_JAR)       \
@@ -24,5 +24,5 @@ class OpenMPJob(Job):
         + " --numCoresBig %s " %OPENMP_NUM_CORES_BIG    \
         + " --numCoresSmall %s " %OPENMP_NUM_CORES_SMALL    \
         + " --container_memory %s" %CONTAINER_MEMORY \
-        + " --timeout %d" %timeout 
+        + " --timeout %d" %(timeout * 1000)
         return cmd

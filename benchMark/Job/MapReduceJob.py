@@ -19,9 +19,8 @@ class MapReduceJob(Job):
         
     def generateYarnCommand(self): 
         jobargs = self.jobConfig[JOB_COMMAND].replace('%d', '-' + str(int(time.time())))
-        cmd = "yarn jar {0}/{1} {2} {3}".format(JOB_POOL_DIR, 
+        cmd = "yarn jar {0}/{1} {2}".format(JOB_POOL_DIR, 
                 self.jobConfig[JOB_JAR_NAME], 
-                self.jobConfig[JOB_NAME], 
                 jobargs)
         return cmd
 

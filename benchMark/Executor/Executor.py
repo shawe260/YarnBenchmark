@@ -15,23 +15,14 @@ Executor launches job via user defined behaviour (eg. Trace or Random), and coll
 class Executor(object):
 
     jobPool = {}
-    executorConfig = {}
     runningJobMap = {} 
     jobType = JOB_TYPES
     collector = MetricsCollector()
     
-    def __init__(self, executor_config_file, timeout):
+    def __init__(self, timeout):
         self.__loadJobPool()
-        self.__loadExecutorConfig(executor_config_file)
-        logging.debug("Spawning a thread to kill the applications that timeout, the timeout is %d" %timeout)
-        t = threading.Thread(name = 'TimeoutThread',
-                target = self.startTimeout,
-                args = (timeout,)
-                )
-        # set it up as a daemon thread so that it will only exit when the program is running, and will automatically terminate when the program is done
-        t.setDaemon(True)
-        t.start()
-
+        self.timeout = timeout
+        
     def __cleanUp__(self):
         for (job, jobType, arrt), status in self.runningJobMap.iteritems():
             self.collector.reportJobFinish(job, jobType, arrt, status)
@@ -40,6 +31,14 @@ class Executor(object):
         self.collector.generateReport()
 
     def __run__(self):
+        logging.debug("Spawning a thread to kill the applications that timeout, the timeout is %d" %self.timeout)
+        t = threading.Thread(name = 'TimeoutThread',
+                target = self.startTimeout,
+                args = (self.timeout,)
+                )
+        # set it up as a daemon thread so that it will only exit when the program is running, and will automatically terminate when the program is done
+        t.setDaemon(True)
+        t.start()
         self.run()
         for runningJob in self.runningJobMap:
             runningJob[0].join()
@@ -55,11 +54,6 @@ class Executor(object):
         self.jobPool = json.load(jobPoolFd)
         jobPoolFd.close()
 
-    def __loadExecutorConfig(self, executor_config_file):
-        reConfigFd = open(executor_config_file, 'r')
-        self.executorConfig = json.load(reConfigFd) 
-        reConfigFd.close()
-    
     """
     Funtion for a timeout thread, the thread will kill all exisiting application if timeout
     """

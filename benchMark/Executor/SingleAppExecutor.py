@@ -9,12 +9,10 @@ from Job.JobFactory import JobFactory
 class SingleAppExecutor(Executor):
 
     def __init__(self, jobType, jobName, timeout = 1200):
-        super(SingleAppExecutor, self).__init__(SINGLE_EXECUTOR_CONF_FILE, timeout)
-        self.times = 1
+        super(SingleAppExecutor, self).__init__(timeout)
+        self.times = SE_RUN_TIMES;
         self.appType = jobType
         self.appName = jobName
-        if 'times' in self.executorConfig.keys():
-            self.times = self.executorConfig['times']
 
     def run(self):
         jobToRun = self.__getJobConfig()

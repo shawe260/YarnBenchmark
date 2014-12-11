@@ -1,18 +1,18 @@
 {
     "MapReduce" : [
         {
-            "job.name" : "randomwriter",
-            "job.command" : "/randwriterOut%d",
-            "job.jar" : "hadoop-mapreduce-examples-2.2.0.jar"
-        },
-        {
             "job.name" : "terasort",
-            "job.command" : "/teraIn /teraOut%d",
+            "job.command" : "terasort /teraIn /teraOut%d",
             "job.jar" : "hadoop-mapreduce-examples-2.2.0.jar"
         },
         {
-            "job.name" : "pi",
-            "job.command" : "10 2000",
+            "job.name" : "pi-1",
+            "job.command" : "pi 10 2000",
+            "job.jar" : "hadoop-mapreduce-examples-2.2.0.jar"
+        },
+        {
+            "job.name" : "pi-2",
+            "job.command" : "pi 100 2000",
             "job.jar" : "hadoop-mapreduce-examples-2.2.0.jar"
         }
     ],
@@ -20,36 +20,52 @@
         {
             "job.name" : "ft.O.4",
             "job.command" : "ft.O.4",
-            "job.containers.num" : 4
+            "job.container.num" : 4
         }
     ],
     "OpenMP" : [
         {
             "job.name" : "bt.A.x",
             "job.command" : "bt.A.x",
-            "job.containers.num" : 4
+            "job.container.num" : 4
         },
         {
             "job.name" : "bt.B.x",
             "job.command" : "bt.B.x",
-            "job.containers.num" : 4
+            "job.container.num" : 4
         },
         {
             "job.name" : "sp.B.x",
             "job.command" : "sp.B.x",
-            "job.containers.num" : 4
+            "job.container.num" : 4
         },
         {
 
             "job.name" : "cg.B.x",
             "job.command" : "cg.B.x",
-            "job.containers.num" : 4
+            "job.container.num" : 4
         }
     ],
     "Spark" : [
         {
-            "job.name" : "sparktest",
-            "job.command" : "test"
+            "job.name" : "sparkPiTest",
+            "job.app.class" : "org.apache.spark.examples.SparkPi",
+            "job.command" : "10",
+            "job.am.mem" : 2048,
+            "job.container.num" : 4,
+            "job.container.mem" : 1024,
+            "job.container.cores" : 1,
+            "job.jar": "spark-examples-1.0.2-hadoop2.2.0.jar"
+        },
+        {
+            "job.name" : "sparkPiBig",
+            "job.app.class" : "org.apache.spark.examples.SparkPi",
+            "job.command" : "1000",
+            "job.am.mem" : 1024,
+            "job.container.num" : 20,
+            "job.container.mem" : 2048,
+            "job.container.cores" : 1,
+            "job.jar": "spark-examples-1.0.2-hadoop2.2.0.jar"
         }
     ]
 }

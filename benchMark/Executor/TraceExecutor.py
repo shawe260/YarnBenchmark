@@ -9,7 +9,7 @@ from Job.JobFactory import JobFactory #questionable
 class TraceExecutor(Executor):
     
     def __init__(self, tracefile = None, timeout = 1200):
-        super(TraceExecutor, self).__init__(TRACE_EXECUTOR_CONF_FILE, timeout)
+        super(TraceExecutor, self).__init__(timeout)
         if (tracefile == None):
             self.tracef = open(TRACE_FILE, 'r')
         else:
